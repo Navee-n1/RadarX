@@ -9,6 +9,7 @@ class User(db.Model):
     email = db.Column(db.String, unique=True, nullable=False)
     role = db.Column(db.String, nullable=False)  # 'recruiter' or 'ar'
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    password=db.Column(db.String,nullable=False)
 
 class JD(db.Model):
     __tablename__ = 'jd'

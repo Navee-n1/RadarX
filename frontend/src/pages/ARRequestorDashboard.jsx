@@ -5,7 +5,9 @@ import axios from 'axios'
 import { motion, AnimatePresence } from 'framer-motion'
 
 
-export default function ARRequestorDashboard() {
+
+
+export default function ARRequestorDashboard({onLogout}) {
   const [activeSection, setActiveSection] = useState('upload')
   const [jdFile, setJdFile] = useState(null)
   const [jdId, setJdId] = useState(null)
@@ -69,7 +71,15 @@ const handleSendEmail = async () => {
 };
 
   return (
-    <div className="w-full max-w-screen-md mx-auto px-4 py-6 space-y-10">
+      <div className="relative w-full max-w-screen-md mx-auto px-4 py-6 space-y-10">
+      {/* 🔴 Logout Button */}
+      <button
+        onClick={onLogout}
+        className="absolute top-4 right-6 bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600"
+      >
+        Logout
+      </button>
+      
       {/* Tabs */}
       <div className="flex justify-center gap-4 mb-6 flex-wrap">
         <button onClick={() => setActiveSection('upload')} className={`px-5 py-2 rounded-full text-sm font-semibold ${activeSection === 'upload' ? 'bg-accent text-black' : 'bg-gray-700 text-white hover:bg-gray-600'}`}>📤 Upload JD</button>

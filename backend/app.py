@@ -1,12 +1,14 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from flask_jwt_extended import JWTManager
 from dotenv import load_dotenv
 import os
 from models import db
 from routes.upload_routes import upload_bp
 from routes.match_routes import match_bp
 from routes.email_routes import email_bp 
+from routes.auth_routes import auth_bp
 
 load_dotenv()
 
@@ -18,6 +20,8 @@ CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(BASE_DIR, 'match_results.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['JWT_SECRET_KEY']='super-secret-key'
+jwt=JWTManager(app)
 
 db.init_app(app)
 
@@ -25,6 +29,7 @@ db.init_app(app)
 app.register_blueprint(upload_bp)
 app.register_blueprint(match_bp)
 app.register_blueprint(email_bp)
+app.register_blueprint(auth_bp)
 
 
 
